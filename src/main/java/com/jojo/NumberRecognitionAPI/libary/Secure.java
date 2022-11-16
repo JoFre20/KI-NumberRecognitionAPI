@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class Secure {
 	
-	private static String domain1 = "adminbackend.quittlestudios.de";
+	private static String domain1 = "192.168.178.87";
 	private static String domain2 = "127.0.0.1";
 	
 	public static boolean checkDomain(HttpServletRequest request) {

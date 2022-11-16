@@ -3,18 +3,22 @@ package com.jojo.NumberRecognitionAPI;
 import java.util.Collections;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.jojo.NumberRecognitionAPI.CommandSystem.CommandRegister;
 import com.jojo.NumberRecognitionAPI.CommandSystem.ConsoleReader;
 import com.jojo.NumberRecognitionAPI.CommandSystem.Commands.HelpCommand;
+import com.jojo.NumberRecognitionAPI.CommandSystem.Commands.ReloadModelCommand;
 import com.jojo.NumberRecognitionAPI.NeuralNetwork.Layer;
 import com.jojo.NumberRecognitionAPI.NeuralNetwork.NeuralNetwork;
 import com.jojo.NumberRecognitionAPI.Webrest.NumberRecognitionApiApplication;
+import com.jojo.NumberRecognitionAPI.lib.NeuralNetworkSave;
 import com.jojo.NumberRecognitionAPI.libary.FileHelper;
 import com.jojo.NumberRecognitionAPI.libary.JsonHelper;
 import com.jojo.NumberRecognitionAPI.libary.OSHelper;
 import com.jojo.NumberRecognitionAPI.libary.Server;
 
+@SpringBootApplication
 public class Main {
 	
 	public static CommandRegister commandregister = new CommandRegister();
@@ -26,10 +30,18 @@ public class Main {
 		consolereader.start();
 		
 		commandregister.register("help", new HelpCommand());
+		commandregister.register("reloadmodel", new ReloadModelCommand());
 		
 		fileHelper.init();
 		String Modeljson = fileHelper.readFromDisk("files/Model.json");
-		neuralnetwork.init(JsonHelper.JsonToClass(Modeljson, Layer[].class));
+		NeuralNetworkSave nns = JsonHelper.JsonToClass(Modeljson, NeuralNetworkSave.class);
+		Main.neuralnetwork.init(nns.getNETWORK());
+		Server.console("Model loaded Successfully!");
+		Server.console("============");
+		Server.console("Sample: " + nns.getSAMPLE());
+		Server.console("Iterations: " + nns.getITERATIONS());
+		Server.console("Created: " + nns.getCREATED());
+		Server.console("============");
 		
 		SpringApplication app = new SpringApplication(new Class[] { NumberRecognitionApiApplication.class });
 		if (OSHelper.isOnPC()) {
