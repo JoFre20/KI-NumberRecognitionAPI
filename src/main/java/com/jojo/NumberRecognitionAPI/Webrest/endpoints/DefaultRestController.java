@@ -12,8 +12,6 @@ import com.jojo.NumberRecognitionAPI.libary.Server;
 @Service
 public class DefaultRestController implements IRestController {
     
-    private Gson gson = new Gson();
-    
     // Domain get code = ((""+request.getRequestURL()).split("/")[2].split(":")[0])
 
     public DefaultRestController() {
