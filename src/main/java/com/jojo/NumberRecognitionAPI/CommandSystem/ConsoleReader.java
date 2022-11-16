@@ -14,7 +14,7 @@ public class ConsoleReader extends Thread {
 		while(true) {
 			Scanner in = new Scanner(System.in);
 			String s = in.nextLine();
-			if(!s.isBlank()) {
+			if(!s.isEmpty()) {
 				Main.commandregister.run(s);
 			}
 		}

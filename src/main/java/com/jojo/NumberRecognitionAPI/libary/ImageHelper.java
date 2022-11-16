@@ -1,16 +1,21 @@
 package com.jojo.NumberRecognitionAPI.libary;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import com.jojo.NumberRecognitionAPI.Main;
+import org.apache.commons.codec.binary.Base64;
 
 public class ImageHelper {
 	
-	public static ArrayList<Float> getImageData(String imgname) throws IOException {
-		FastRGB fastRGB = new FastRGB(ImageIO.read(Main.fileHelper.readFromDiskFile(imgname)));
+	public static ArrayList<Float> getImageDatafromDataURL(String dataUrl) throws IOException {
+		int dataStartIndex = dataUrl.indexOf(",") + 1;
+		String data = dataUrl.substring(dataStartIndex);
+		data = data.replace(" ", "+");
+		byte[] imageData = java.util.Base64.getDecoder().decode(data);
+		FastRGB fastRGB = new FastRGB(ImageIO.read(new ByteArrayInputStream(imageData)));
 		ArrayList<Float> image = new ArrayList<Float>();
 		for (int w = 0; w < fastRGB.getWidth(); w++) {
 			for (int h = 0; h < fastRGB.getHeight(); h++) {

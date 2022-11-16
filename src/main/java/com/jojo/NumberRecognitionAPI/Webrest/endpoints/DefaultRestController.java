@@ -1,11 +1,17 @@
 package com.jojo.NumberRecognitionAPI.Webrest.endpoints;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
+import com.jojo.NumberRecognitionAPI.Main;
+import com.jojo.NumberRecognitionAPI.NeuralNetwork.StatUtil;
+import com.jojo.NumberRecognitionAPI.libary.ImageHelper;
 import com.jojo.NumberRecognitionAPI.libary.Secure;
 import com.jojo.NumberRecognitionAPI.libary.Server;
 
@@ -32,7 +38,15 @@ public class DefaultRestController implements IRestController {
 	@Override
 	public ResponseEntity<String> askai(HttpServletRequest request, String image) {
         if(Secure.checkDomain(request)) {
-        	return ResponseEntity.ok("OK");
+        	ArrayList<Float> ImageData;
+			try {
+				ImageData = ImageHelper.getImageDatafromDataURL(image);
+			} catch (IOException e) {
+				e.printStackTrace();
+				return ResponseEntity.ok("ERROR");
+			}
+        	int KINumber = Main.neuralnetwork.recognitionNumber(StatUtil.ArrayListtoFloatArray(ImageData));
+        	return ResponseEntity.ok(KINumber +"");
         } else {
         	return ResponseEntity.ok("WRONG DOMAIN");
         }

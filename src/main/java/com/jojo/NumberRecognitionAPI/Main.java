@@ -19,7 +19,7 @@ public class Main {
 	
 	public static CommandRegister commandregister = new CommandRegister();
 	public static FileHelper fileHelper = new FileHelper();
-	private static NeuralNetwork neuralnetwork = new NeuralNetwork();
+	public static NeuralNetwork neuralnetwork = new NeuralNetwork();
 	
 	public static void main(String[] args) {
 		ConsoleReader consolereader = new ConsoleReader();

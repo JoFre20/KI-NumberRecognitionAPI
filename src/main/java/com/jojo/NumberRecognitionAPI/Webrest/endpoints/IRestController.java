@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping({"monitroring/v1/rest/service/"})
+@RequestMapping({"numberrecognition/v1/rest/service/"})
 @CrossOrigin
 public interface IRestController {
   @GetMapping({"/status"})
