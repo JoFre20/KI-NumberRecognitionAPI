@@ -2,6 +2,8 @@ package com.jojo.NumberRecognitionAPI.Webrest.endpoints;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,7 +13,9 @@ import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
 import com.jojo.NumberRecognitionAPI.Main;
 import com.jojo.NumberRecognitionAPI.NeuralNetwork.StatUtil;
+import com.jojo.NumberRecognitionAPI.lib.MNISTImageSave;
 import com.jojo.NumberRecognitionAPI.libary.ImageHelper;
+import com.jojo.NumberRecognitionAPI.libary.JsonHelper;
 import com.jojo.NumberRecognitionAPI.libary.Secure;
 import com.jojo.NumberRecognitionAPI.libary.Server;
 
@@ -47,6 +51,18 @@ public class DefaultRestController implements IRestController {
 			}
         	int KINumber = Main.neuralnetwork.recognitionNumber(StatUtil.ArrayListtoFloatArray(ImageData));
         	return ResponseEntity.ok(KINumber +"");
+        } else {
+        	return ResponseEntity.ok("WRONG DOMAIN");
+        }
+	}
+
+	@Override
+	public ResponseEntity<String> getrandomimg(HttpServletRequest request) {
+        if(Secure.checkDomain(request)) {
+        	int randomNum = ThreadLocalRandom.current().nextInt(1, 10000 + 1);
+        	MNISTImageSave mis = JsonHelper.JsonToClass(Main.fileHelper.readFromDisk("data/" + randomNum + ".json"), MNISTImageSave.class);
+        	System.out.println(mis.getNUMBER());
+        	return ResponseEntity.ok(mis.getIMAGEDATA());
         } else {
         	return ResponseEntity.ok("WRONG DOMAIN");
         }

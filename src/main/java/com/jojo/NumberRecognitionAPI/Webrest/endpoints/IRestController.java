@@ -19,4 +19,7 @@ public interface IRestController {
   @GetMapping({"/ki/askai"})
   ResponseEntity<String> askai(HttpServletRequest paramHttpServletRequest, String image);
   
+  @GetMapping({"/data/randomimg"})
+  ResponseEntity<String> getrandomimg(HttpServletRequest paramHttpServletRequest);
+  
 } 
