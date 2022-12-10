@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+ <html lang='de'>
+ <head>
+ <title>404</title>
+ <meta http-equiv='content-type' content='text/html; charset=utf-8' />
+ <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+ <style>
+    *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'cabin', sans-serif;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    background-color: blueviolet;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container {
+    background-color: rgb(28, 28,29);
+    min-width: 600px;
+    max-width: 800px;
+    border-radius: 10px;
+
+        display: flex;
+    padding: 3px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+}
+
+.container {
+    min-height: 600px;
+    max-height: 800px;
+    display: flex;
+    padding: 3px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+}
+
+h1 {
+    margin-top: -30px;
+    font-size: 120px;
+    color: white;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 25px;
+    color: white;
+}
+
+button {
+  background-color: #4F545C; /* Green */
+  border: none;
+  border-radius: 4px;
+  color: white;
+  padding: 13px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 35px;
+}
+
+button:hover {background-color: #686d73;}
+
+.div{
+    margin-top: -30px;
+    font-size: 120px;
+    color: white;
+    margin-bottom: 20px;
+    animation: glitch 1s linear infinite;
+  }
+  
+  @keyframes glitch{
+    2%,64%{
+      transform: translate(2px,0) skew(0deg);
+    }
+    4%,60%{
+      transform: translate(-2px,0) skew(0deg);
+    }
+    62%{
+      transform: translate(0,0) skew(5deg); 
+    }
+  }
+  
+  .div:before,
+  .div:after{
+    content: attr(title);
+    position: absolute;
+    left: 0;
+  }
+  
+  .div:before{
+    animation: glitchTop 1s linear infinite;
+    clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+  }
+  
+  @keyframes glitchTop{
+    2%,64%{
+      transform: translate(2px,-2px);
+    }
+    4%,60%{
+      transform: translate(-2px,2px);
+    }
+    62%{
+      transform: translate(13px,-1px) skew(-13deg); 
+    }
+  }
+  
+  .div:after{
+    animation: glitchBotom 1.5s linear infinite;
+    clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+    -webkit-clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+  }
+  
+  @keyframes glitchBotom{
+    2%,64%{
+      transform: translate(-2px,0);
+    }
+    4%,60%{
+      transform: translate(-2px,0);
+    }
+    62%{
+      transform: translate(-22px,5px) skew(21deg); 
+    }
+  }
+ </style>
+ </head>
+
+ <body>
+        <div class='container'>
+            <div class='div' title='404'>404</div>
+            <p>Upps...</p>
+            <p>Die Seite wurde nicht gefunden</p>
+            <button>Nach Hause?</button>
+        </div>
+ </body>
+
+ </html>
