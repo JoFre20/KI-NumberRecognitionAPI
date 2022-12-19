@@ -24,9 +24,6 @@ public class ImageHelper {
 				int g = (rgb >> 8) & 0xFF;
 				int b = (rgb & 0xFF);
 				int gray = (r + g + b) / 3;
-				if(gray < 60) {
-					gray = 0;
-				}
 				image.add(normalizeMINST(gray));
 			}
 		}

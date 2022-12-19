@@ -3,15 +3,13 @@ package com.jojo.NumberRecognitionAPI;
 import java.util.Collections;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
 
 import com.jojo.NumberRecognitionAPI.CommandSystem.CommandRegister;
 import com.jojo.NumberRecognitionAPI.CommandSystem.ConsoleReader;
 import com.jojo.NumberRecognitionAPI.CommandSystem.Commands.HelpCommand;
 import com.jojo.NumberRecognitionAPI.CommandSystem.Commands.ReloadModelCommand;
-import com.jojo.NumberRecognitionAPI.NeuralNetwork.Layer;
+import com.jojo.NumberRecognitionAPI.CommandSystem.Commands.SetStatusCommand;
 import com.jojo.NumberRecognitionAPI.NeuralNetwork.NeuralNetwork;
 import com.jojo.NumberRecognitionAPI.Webrest.NumberRecognitionApiApplication;
 import com.jojo.NumberRecognitionAPI.lib.NeuralNetworkSave;
@@ -19,6 +17,7 @@ import com.jojo.NumberRecognitionAPI.libary.FileHelper;
 import com.jojo.NumberRecognitionAPI.libary.JsonHelper;
 import com.jojo.NumberRecognitionAPI.libary.OSHelper;
 import com.jojo.NumberRecognitionAPI.libary.Server;
+import com.jojo.NumberRecognitionAPI.libary.Status;
 
 @SpringBootApplication
 public class Main {
@@ -27,12 +26,16 @@ public class Main {
 	public static FileHelper fileHelper = new FileHelper();
 	public static NeuralNetwork neuralnetwork = new NeuralNetwork();
 	
+	public static Status KI_Status = Status.ONLINE;
+	public static Status IMG_Status = Status.ONLINE;
+	
 	public static void main(String[] args) {
 		ConsoleReader consolereader = new ConsoleReader();
 		consolereader.start();
 		
 		commandregister.register("help", new HelpCommand());
 		commandregister.register("reloadmodel", new ReloadModelCommand());
+		commandregister.register("setstatus", new SetStatusCommand());
 		
 		fileHelper.init();
 		String Modeljson = fileHelper.readFromDisk("files/Model.json");
